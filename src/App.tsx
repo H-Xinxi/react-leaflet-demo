@@ -14,6 +14,10 @@ import { Rnd } from 'react-rnd'
 import Video from './Video'
 import TsDataTable from './TsDataTable'
 import Monitor from './Monitor'
+import MapGlProvider from './map/MapGlProvider'
+import DeckGLProvider from './map/DeckGlProvider'
+import DeckGlProvider2 from './map/DeckGlProvider2'
+import { usePlaneWs } from './ws/planeWs'
 const icon = leaflet.icon({
   iconUrl: iconUrl,
 })
@@ -28,22 +32,14 @@ const videoJsOptions = {
 // Create a client
 const queryClient = new QueryClient()
 function App() {
-  const [containerEl, setContainerEl] = useState<ElementRef<'main'> | null>(
-    null
-  )
-  const [texture, setTexture] = useState(null)
-  useEffect(() => {
-    // setTimeout(() => {
-    //   const videoEl = document.querySelector("video")
-    //   setTexture(Texture.from(videoEl!) as any)
-    // },5000)
+  console.log('app')
+  // usePlaneWs()
 
-  },[])
   return (
-    <main ref={setContainerEl} className="w-screen h-screen">
-      <QueryClientProvider client={queryClient}>
-        <MapProvider>
-          {/* <Stage> */}
+    <main  className="w-screen h-screen">
+      {/* <QueryClientProvider client={queryClient}> */}
+        {/* <MapProvider>
+
             <Plane position={[30, 120]}></Plane>
 
             <UI containerEl={containerEl}>
@@ -51,14 +47,16 @@ function App() {
                 <Monitor></Monitor>
                 <TsDataTable></TsDataTable>
               </div>
-              {/* <div className='absolute left-0 top-0 w-[300px] h-[300px] bg-red-300 z-[500]'>
-          
-            </div> */}
+
 
             </UI>
-          {/* </Stage> */}
-        </MapProvider>
-      </QueryClientProvider>
+        </MapProvider> */}
+        {/* <MapGlProvider>
+
+        </MapGlProvider> */}
+        <DeckGLProvider></DeckGLProvider>
+        {/* <DeckGlProvider2 key={'map'}/> */}
+      {/* </QueryClientProvider> */}
       {/* <MapContainer
         style={{ height: '100vh', width: '100vw' }}
         center={[30, 120]}
