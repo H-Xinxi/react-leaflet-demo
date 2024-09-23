@@ -41,7 +41,11 @@ function DeckGLOverlay(props: DeckProps) {
   overlay.setProps(props)
   return null
 }
-
+const data = [
+  {lon: 104,lat: 30, time: 0,duration:0},
+  {lon:104.5,lat: 30.5, duration: 1000,time: 1000},
+  {lon:104.8,lat: 30.2, duration: 3000, time: 4000},
+]
 function PlanesLayer() {
   const [popupPlane, setPopupPlane] = useState<Plane | null>(null)
   const [planes] = usePlaneWs()
@@ -57,11 +61,8 @@ function PlanesLayer() {
     }
     animeController.current = anime({
       targets,
-      keyframes: [
-        {lon: 104,lat: 30},
-        {lon:104.5,lat: 30.5, duration: 2000},
-        {lon:104.8,lat: 30.2, duration: 2000},
-      ],
+      keyframes: data,
+      duration: 4000,
       // lon: [
       //   { value: 104,  },
       //   { value: 104.5, duration: 2000 },
@@ -72,9 +73,11 @@ function PlanesLayer() {
       //   { value: 30.5, duration: 2000 },
       //   { value: 30.2, duration: 2000 },
       // ],
+      // delay: 0,
       easing: 'linear',
       update(a) {
         setPlaybackPosition({...targets})
+        console.log('targets',targets.lat,targets.lon)
         // console.log('targets',a,targets.lat, targets.lon)
       },
     })
@@ -143,10 +146,7 @@ function PlanesLayer() {
       new TripsLayer({
         id: 'TripsLayer',
         data: [
-          [
-            { lon: 104, lat: 30, time: 100 },
-            { lon: 104.5, lat: 30.5, time: 200 },
-          ],
+          data,
         ],
 
         getPath: (d: any) => d.map((p: any) => [p.lon, p.lat]),
@@ -154,7 +154,7 @@ function PlanesLayer() {
         getTimestamps: (d: any) => d.map((p: any) => p.time),
 
         getColor: [253, 128, 93],
-        currentTime: 120,
+        currentTime: animeController.current?.currentTime,
         trailLength: 600,
         capRounded: true,
         jointRounded: true,
@@ -183,9 +183,7 @@ function PlanesLayer() {
       }),
       new PathLayer({
         id: 'PathLayer',
-        data: [[        {lon: 104,lat: 30},
-          {lon:104.5,lat: 30.5, duration: 2000},
-          {lon:104.8,lat: 30.2, duration: 2000},]],
+        data: [data],
     
         // getColor: (d:any) => {
           
