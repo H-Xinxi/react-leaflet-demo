@@ -18,6 +18,7 @@ import MapGlProvider from './map/MapGlProvider'
 import DeckGLProvider from './map/DeckGlProvider'
 import DeckGlProvider2 from './map/DeckGlProvider2'
 import { usePlaneWs } from './ws/planeWs'
+import LeafletProvider from './map/LeafletProvider'
 const icon = leaflet.icon({
   iconUrl: iconUrl,
 })
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <main  className="w-screen h-screen">
+      <LeafletProvider></LeafletProvider>
       {/* <QueryClientProvider client={queryClient}> */}
         {/* <MapProvider>
 
@@ -54,7 +56,7 @@ function App() {
         {/* <MapGlProvider>
 
         </MapGlProvider> */}
-        <DeckGLProvider></DeckGLProvider>
+        {/* <DeckGLProvider></DeckGLProvider> */}
         {/* <DeckGlProvider2 key={'map'}/> */}
       {/* </QueryClientProvider> */}
       {/* <MapContainer
