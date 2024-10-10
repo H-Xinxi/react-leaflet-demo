@@ -9,6 +9,8 @@ import PlaneIconUrl from '@/assets/plane.png'
 import { PixiRoot } from '@/pixi/PixiRoot'
 import LeafletPlanesLayer from './LeafletPlanesLayer'
 import { atom, useAtom } from 'jotai'
+import LeafletPlanePlayback from './LeafletPlanePlayback'
+import LeafletPlaneHeatmap from './LeafletPlaneHeatmap'
 type Props = {}
 
 export const popupPositionAtom = atom<[number,number] | null>(null)
@@ -25,9 +27,12 @@ const LeafletProvider = (props: Props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <LeafletPlaneHeatmap></LeafletPlaneHeatmap>
       <PixiRoot>
         <LeafletPlanesLayer></LeafletPlanesLayer>
+        <LeafletPlanePlayback></LeafletPlanePlayback>
       </PixiRoot>
+      
       {/* <Marker position={[51.505, -0.09]}> */}
       {popupPosition && 
         <Popup position={popupPosition} closeOnClick={false} autoClose={false}>

@@ -1,5 +1,5 @@
 import "leaflet";
-import * as PIXI from "pixi.js";
+import * as PIXI from "pixi.js-legacy";
 
 declare module "leaflet" {
   interface PixiOverlayOptions extends L.LayerOptions {
@@ -15,7 +15,7 @@ declare module "leaflet" {
     shouldRedrawOnMove: () => boolean;
   }
 
-  type LatLngToLayerPointFn = (latLng: L.LatLng, zoom?: number) => L.Point;
+  type LatLngToLayerPointFn = (latLng: L.LatLng | [number,number], zoom?: number) => L.Point;
   type LayerPointToLatLngFn = (point: L.Point, zoom?: number) => L.LatLng;
 
   interface PixiOverlayUtils {

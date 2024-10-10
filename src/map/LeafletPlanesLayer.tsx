@@ -16,7 +16,7 @@ const LeafletPlanesLayer = (props: Props) => {
     const setPopUpPosition = useSetAtom(popupPositionAtom)
   return (
     <>
-    <Plane anchor={[0.5,0.5]} lat={50} lng={0} onClick={({lat,lng}) => {
+    <Plane lat={50} lng={0} onClick={({lat,lng}) => {
         setPopUpPosition([lat,lng])
     }}></Plane>
     <MapUI>

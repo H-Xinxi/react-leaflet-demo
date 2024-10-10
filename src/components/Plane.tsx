@@ -14,9 +14,9 @@ const Plane = (props: Props) => {
     const scale = useScale()
   return (
     <>
-        <Sprite eventMode='static' x={x} y={y} scale={1/scale} image={PlaneIconUrl}  {...props} onclick={() => {
+        <Sprite eventMode='static' anchor={[0.5,0.5]}  x={x} y={y} scale={0.6/scale} image={PlaneIconUrl}  {...props} onclick={() => {
             console.log('click')
-            props.onClick({lat:props.lat,lng:props.lng})
+            props.onClick?.({lat:props.lat,lng:props.lng})
         }}>
 
         </Sprite>

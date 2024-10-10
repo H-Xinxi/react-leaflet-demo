@@ -1,10 +1,11 @@
-import 'leaflet-pixi-overlay' // Must be called before the 'leaflet' import
+// import 'leaflet-pixi-overlay' // Must be called before the 'leaflet' import
+import './LeafletPixiOverlay.js'
 import L from 'leaflet'
-import * as PIXI from 'pixi.js'
+import * as PIXI from 'pixi.js-legacy'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useMap } from 'react-leaflet'
 import { render, createRoot } from '@pixi/react'
-import { PixiOverlayProvider } from './hooks'
+import { PixiOverlayProvider, PixiOverlayUtilsProvider } from './hooks'
 import {
   LeafletProvider,
   createLeafletContext,
@@ -19,7 +20,7 @@ type Props = {
 }
 
 export const uiElmListAtom = atom<React.ReactNode[]>([])
-export function PixiRoot({ children }: Props):React.ReactNode {
+export function PixiRoot({ children }: Props): React.ReactNode {
   // 获取 map 实例，map 来自 react-leaflet 的 MapContainer
   //   const map = useMap()
   const leafletMapContext = useLeafletContext()
@@ -81,23 +82,21 @@ export function PixiRoot({ children }: Props):React.ReactNode {
 
   useEffect(() => {
     const project = pixiOverlay.utils.latLngToLayerPoint
+
     // const leaflet
     const provider = (
       <LeafletProvider value={leafletMapContext}>
-        <PixiOverlayProvider value={{ project, scale }}>
-          {children}
-        </PixiOverlayProvider>
+        <PixiOverlayUtilsProvider value={pixiOverlay.utils}>
+          <PixiOverlayProvider value={{ project, scale }}>
+            {children}
+          </PixiOverlayProvider>
+        </PixiOverlayUtilsProvider>
       </LeafletProvider>
     )
 
     render(provider, container)
   }, [children, pixiOverlay, scale])
 
-
   const [uiElmList] = useAtom(uiElmListAtom)
-  return createPortal(
-      
-      uiElmList,
-      document.body
-) 
+  return createPortal(uiElmList, document.body)
 }
